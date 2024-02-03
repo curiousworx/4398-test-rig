@@ -17,6 +17,8 @@ public final class Constants {
     // SPARK FLEX CAN IDs
     public static final int kMotorOneId = 40;
     public static final int kMotorTwoId = 41;
+
+    public static final int kMotorThreeId = 43;
   }
 
   public static class TwoMotorSystemConstants {

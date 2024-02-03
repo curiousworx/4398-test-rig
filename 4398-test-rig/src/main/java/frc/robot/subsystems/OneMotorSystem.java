@@ -15,7 +15,7 @@ import frc.robot.Constants.OneMotorSystemConstants;
 import frc.robot.Constants.TwoMotorSystemConstants;
 
 public class OneMotorSystem extends SubsystemBase {
-  private CANSparkFlex m_motor = new CANSparkFlex(ControlIDConstants.kMotorOneId, MotorType.kBrushless);  
+  private CANSparkFlex m_motor = new CANSparkFlex(ControlIDConstants.kMotorThreeId, MotorType.kBrushless);  
 
   private double[] m_speeds = {.1, .15, .2, .25, .3, .35, .4, .45, .5, .55, .6, .65, .7, .75, .8, .85, .9, .95, 1};
   private int m_speedsPointer = 1;
