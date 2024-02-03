@@ -16,7 +16,7 @@ public class TwoMotorSystem extends SubsystemBase {
   private CANSparkFlex m_motorOne = new CANSparkFlex(ControlIDConstants.kMotorOneId, MotorType.kBrushless);
   private CANSparkFlex m_motorTwo = new CANSparkFlex(ControlIDConstants.kMotorTwoId, MotorType.kBrushless);
 
-  private double[] m_speeds = {.35, .4, .45, .5, .55, .6, .65, .7, .75, .8, .85, .9, .95, 1};
+  private double[] m_speeds = {.1, .15, .2, .25, .3, .35, .4, .45, .5, .55, .6, .65, .7, .75, .8, .85, .9, .95, 1};
   private int m_speedsPointer = 1;
 
   /** Creates a new TwoMotorSystem. */
@@ -27,7 +27,7 @@ public class TwoMotorSystem extends SubsystemBase {
     m_motorTwo.setInverted(true);
     m_motorTwo.setSmartCurrentLimit(TwoMotorSystemConstants.kTwoMotorCurrentLimit);
 
-    m_motorTwo.follow(m_motorOne);
+    //m_motorTwo.follow(m_motorOne);
 
     m_motorOne.burnFlash();
     m_motorTwo.burnFlash();
@@ -55,7 +55,8 @@ public class TwoMotorSystem extends SubsystemBase {
   }
 
   public void setSpeed(double speed){
-    m_motorOne.set(speed);    
+    m_motorOne.set(speed);  
+    m_motorTwo.set(speed);   
   } 
 
   @Override
