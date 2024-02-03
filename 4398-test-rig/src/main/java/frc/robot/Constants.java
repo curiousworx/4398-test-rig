@@ -23,6 +23,10 @@ public final class Constants {
     public static final int kTwoMotorCurrentLimit = 60;
   }
 
+  public static class OneMotorSystemConstants {
+    public static final int kOneMotorCurrentLimit = 40;
+  }
+
   
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;

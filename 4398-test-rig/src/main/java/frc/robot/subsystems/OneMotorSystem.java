@@ -11,29 +11,23 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ControlIDConstants;
+import frc.robot.Constants.OneMotorSystemConstants;
 import frc.robot.Constants.TwoMotorSystemConstants;
 
-public class TwoMotorSystem extends SubsystemBase {
-  private CANSparkFlex m_motorOne = new CANSparkFlex(ControlIDConstants.kMotorOneId, MotorType.kBrushless);
-  private CANSparkFlex m_motorTwo = new CANSparkFlex(ControlIDConstants.kMotorTwoId, MotorType.kBrushless);
+public class OneMotorSystem extends SubsystemBase {
+  private CANSparkFlex m_motor = new CANSparkFlex(ControlIDConstants.kMotorOneId, MotorType.kBrushless);  
 
   private double[] m_speeds = {.1, .15, .2, .25, .3, .35, .4, .45, .5, .55, .6, .65, .7, .75, .8, .85, .9, .95, 1};
   private int m_speedsPointer = 1;
 
-  /** Creates a new TwoMotorSystem. */
-  public TwoMotorSystem() {
-    m_motorOne.setInverted(false);
-    m_motorOne.setSmartCurrentLimit(TwoMotorSystemConstants.kTwoMotorCurrentLimit);
-    m_motorOne.setIdleMode(IdleMode.kCoast);
+  /** Creates a new OneMotorSystem. */
+  public OneMotorSystem() {
 
-    m_motorTwo.setInverted(true);
-    m_motorTwo.setSmartCurrentLimit(TwoMotorSystemConstants.kTwoMotorCurrentLimit);
-    m_motorTwo.setIdleMode(IdleMode.kCoast);
+    m_motor.setInverted(false);
+    m_motor.setSmartCurrentLimit(TwoMotorSystemConstants.kTwoMotorCurrentLimit);
+    m_motor.setIdleMode(IdleMode.kBrake);
 
-    //m_motorTwo.follow(m_motorOne);
-
-    m_motorOne.burnFlash();
-    m_motorTwo.burnFlash();
+    m_motor.burnFlash();
   }
 
   public void switchSpeed(boolean direction){
@@ -58,13 +52,12 @@ public class TwoMotorSystem extends SubsystemBase {
   }
 
   public void setSpeed(double speed){
-    m_motorOne.set(speed);  
-    m_motorTwo.set(speed);   
+    m_motor.set(speed);     
   } 
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("Two Motor Target Speed", getSpeed() * 100);
+    SmartDashboard.putNumber("One Motor Target Speed", getSpeed() * 100);
   }
 }

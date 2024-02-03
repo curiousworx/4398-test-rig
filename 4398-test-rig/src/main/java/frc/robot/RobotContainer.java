@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.robot.subsystems.TwoMotorSystem;
+import frc.robot.subsystems.OneMotorSystem;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -31,7 +32,8 @@ public class RobotContainer {
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandPS5Controller m_driverController = new CommandPS5Controller(OperatorConstants.kDriverControllerPort);
-  private final TwoMotorSystem m_system = new TwoMotorSystem();
+  private final TwoMotorSystem m_twoSystem = new TwoMotorSystem();
+  private final OneMotorSystem m_oneSystem = new OneMotorSystem();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -57,20 +59,46 @@ public class RobotContainer {
     // cancelling on release.
     m_driverController
       .povUp()        
-      .onTrue(new InstantCommand(() -> m_system.switchSpeed(true), m_system));
+      .onTrue(new InstantCommand(() -> m_twoSystem.switchSpeed(true), m_twoSystem));
 
     m_driverController
       .povDown()
-      .onTrue(new InstantCommand(() -> m_system.switchSpeed(false), m_system)); 
+      .onTrue(new InstantCommand(() -> m_twoSystem.switchSpeed(false), m_twoSystem)); 
 
     m_driverController
       .R2()
       .whileTrue(new RunCommand(
-          () -> m_system.setSpeed(m_system.getSpeed()),
-          m_system)) 
+          () -> m_twoSystem.setSpeed(m_twoSystem.getSpeed()),
+          m_twoSystem)) 
       .onFalse(new RunCommand(
-          () -> m_system.setSpeed(0.0),
-          m_system));     
+          () -> m_twoSystem.setSpeed(0.0),
+          m_twoSystem));    
+          
+    m_driverController
+      .povRight()        
+      .onTrue(new InstantCommand(() -> m_oneSystem.switchSpeed(true), m_oneSystem));
+
+    m_driverController
+      .povLeft()
+      .onTrue(new InstantCommand(() -> m_oneSystem.switchSpeed(false), m_oneSystem)); 
+
+    m_driverController
+      .L2()
+      .whileTrue(new RunCommand(
+          () -> m_oneSystem.setSpeed(m_oneSystem.getSpeed()),
+          m_oneSystem)) 
+      .onFalse(new RunCommand(
+          () -> m_oneSystem.setSpeed(0.0),
+          m_oneSystem));   
+          
+    m_driverController
+      .L1()
+      .whileTrue(new RunCommand(
+          () -> m_oneSystem.setSpeed(-m_oneSystem.getSpeed()),
+          m_oneSystem)) 
+      .onFalse(new RunCommand(
+          () -> m_oneSystem.setSpeed(0.0),
+          m_oneSystem));  
   }
 
   /**
